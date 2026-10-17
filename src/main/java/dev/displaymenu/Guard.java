@@ -15,12 +15,12 @@ final class Guard {
     private Guard() {
     }
 
-    static void register(DisplayMenuPlugin plugin) {
+    static void register(DisplayMenuPlugin owner) {
         ProtocolLibrary.getProtocolManager().addPacketListener(
-                new PacketAdapter(plugin, ListenerPriority.LOWEST, PacketType.Play.Client.USE_ENTITY) {
+                new PacketAdapter(owner, ListenerPriority.LOWEST, PacketType.Play.Client.USE_ENTITY) {
                     @Override
                     public void onPacketReceiving(PacketEvent e) {
-                        if (e.getPlayer() == null || !plugin.inMenu.contains(e.getPlayer().getUniqueId())) return;
+                        if (e.getPlayer() == null || !owner.inMenu.contains(e.getPlayer().getUniqueId())) return;
                         e.setCancelled(true);
                     }
                 });
